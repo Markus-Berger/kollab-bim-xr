@@ -7,7 +7,7 @@
         function getModelPath() {
             const urlParams = new URLSearchParams(window.location.search);
             const modelName = urlParams.get('model') || 'bim_modell.glb';
-            return `models/${modelName}`;
+            return '../models/${modelName}';
         }
     </script>
     <body style="margin : 0px; overflow: hidden;">
