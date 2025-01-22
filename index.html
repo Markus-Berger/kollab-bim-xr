@@ -8,7 +8,8 @@
   <script>
     function getModelPath() {
       const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get('model') || 'bim_modell.glb';
+      const modelName = urlParams.get('model') || 'bim_modell.glb';
+      return `models/${modelName}`;
     }
   </script>
 </head>
