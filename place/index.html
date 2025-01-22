@@ -15,6 +15,8 @@
         src="../models/test.glb"
         ar 
         ar-modes="webxr scene-viewer quick-look" 
+        ar-scale="fixed"  <!-- 🔹 Keeps real-world scale intact -->
+        ar-placement="floor"  <!-- 🔹 Allows moving the model in AR -->
         camera-controls 
         auto-rotate 
         shadow-intensity="1">
