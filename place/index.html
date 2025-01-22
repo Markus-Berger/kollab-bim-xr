@@ -9,10 +9,17 @@
         body { margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background: #f3f3f3; }
         model-viewer { width: 100%; max-width: 600px; height: 500px; }
     </style>
+    <script>
+        function getModelPath() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const modelName = urlParams.get('model') || 'test.glb';
+            return `../models/${modelName}`;
+        }
+    </script>
 </head>
 <body>
     <model-viewer 
-        src="../models/test.glb"
+        id="modelViewer"
         ar 
         ar-modes="webxr scene-viewer quick-look" 
         ar-scale="fixed"
@@ -24,5 +31,12 @@
             View in AR
         </button>
     </model-viewer>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const modelViewer = document.getElementById('modelViewer');
+            modelViewer.setAttribute('src', getModelPath());
+        });
+    </script>
 </body>
 </html>
