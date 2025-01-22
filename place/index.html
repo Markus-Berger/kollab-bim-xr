@@ -8,22 +8,12 @@
     <script src="https://cdn.jsdelivr.net/npm/aframe-xr@1.0.0/dist/aframe-xr.min.js"></script>
 </head>
 <body style="margin: 0; overflow: hidden;">
-
-<a-scene 
+<a-scene
     xr-mode-ui="enabled: false"
-    webxr="optionalFeatures: hit-test;"
     ar-hit-test="target: #building; type: single"
+    webxr="optionalFeatures: hit-test;"
     renderer="colorManagement: true;"
     cursor="rayOrigin: mouse; fuse: false">
-
-    <!-- Reticle (Placement Indicator) -->
-    <a-entity 
-        id="reticle"
-        geometry="primitive: ring; radiusOuter: 0.08; radiusInner: 0.07; height: 0.001"
-        material="color: #00ff00; shader: flat"
-        visible="false">
-    </a-entity>
-
     <!-- Building Model -->
     <a-entity 
         id="building" 
@@ -31,44 +21,38 @@
         scale="0.1 0.1 0.1"
         visible="false">
     </a-entity>
-
-    <!-- Camera -->
+    <!-- Camera & Reticle (Placement Indicator) -->
     <a-camera position="0 1.6 0">
         <a-light type="ambient" intensity="1"></a-light>
         <a-light type="directional" position="-1 2 1" intensity="1"></a-light>
     </a-camera>
-
     <!-- UI Controls -->
     <div id="controls" style="position: absolute; bottom: 20px; width: 100%; text-align: center;">
         <button onclick="rotateModel(10)">Rotate +10°</button>
         <button onclick="rotateModel(-10)">Rotate -10°</button>
+        <button onclick="moveUp()">Move Up</button>
+        <button onclick="moveDown()">Move Down</button>
     </div>
-
 </a-scene>
-
 <script>
     let model = document.getElementById('building');
-    let reticle = document.getElementById('reticle');
     let rotationY = 0;
-
-    // Fix: Use A-Frame's 'ar-hit-test' event to properly update the model position
-    document.querySelector('a-scene').addEventListener('ar-hit-test-result', function(event) {
-        let hitPosition = event.detail.intersection.point;
-        if (hitPosition) {
-            reticle.setAttribute("visible", "true");
-            reticle.setAttribute("position", hitPosition);
-
-            // Adjust model placement: Place it at the detected ground position
-            model.setAttribute("visible", "true");
-            model.setAttribute("position", `${hitPosition.x} ${hitPosition.y} ${hitPosition.z}`);
-        }
-    });
-
+    let positionY = 0;
     function rotateModel(degrees) {
         rotationY += degrees;
         model.setAttribute('rotation', `0 ${rotationY} 0`);
     }
+    function moveUp() {
+        positionY += 0.1;
+        model.setAttribute('position', `0 ${positionY} 0`);
+    }
+    function moveDown() {
+        positionY -= 0.1;
+        model.setAttribute('position', `0 ${positionY} 0`);
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+        model.setAttribute("visible", "true");
+    });
 </script>
-
 </body>
 </html>
