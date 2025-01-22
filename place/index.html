@@ -18,7 +18,7 @@
     <a-entity 
         id="building" 
         gltf-model="../models/test.glb"
-        scale="0.1 0.1 0.1"
+        scale="1 1 1"
         visible="false">
     </a-entity>
     <!-- Camera & Reticle (Placement Indicator) -->
@@ -26,30 +26,10 @@
         <a-light type="ambient" intensity="1"></a-light>
         <a-light type="directional" position="-1 2 1" intensity="1"></a-light>
     </a-camera>
-    <!-- UI Controls -->
-    <div id="controls" style="position: absolute; bottom: 20px; width: 100%; text-align: center;">
-        <button onclick="rotateModel(10)">Rotate +10°</button>
-        <button onclick="rotateModel(-10)">Rotate -10°</button>
-        <button onclick="moveUp()">Move Up</button>
-        <button onclick="moveDown()">Move Down</button>
-    </div>
 </a-scene>
 <script>
     let model = document.getElementById('building');
-    let rotationY = 0;
-    let positionY = 0;
-    function rotateModel(degrees) {
-        rotationY += degrees;
-        model.setAttribute('rotation', `0 ${rotationY} 0`);
-    }
-    function moveUp() {
-        positionY += 0.1;
-        model.setAttribute('position', `0 ${positionY} 0`);
-    }
-    function moveDown() {
-        positionY -= 0.1;
-        model.setAttribute('position', `0 ${positionY} 0`);
-    }
+
     document.addEventListener("DOMContentLoaded", () => {
         model.setAttribute("visible", "true");
     });
