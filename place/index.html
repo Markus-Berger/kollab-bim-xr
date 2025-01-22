@@ -2,38 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>AR Building Placement</title>
-    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/aframe-xr@1.0.0/dist/aframe-xr.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Model Viewer with AR</title>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <style>
+        body { margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background: #f3f3f3; }
+        model-viewer { width: 100%; max-width: 600px; height: 500px; }
+    </style>
 </head>
-<body style="margin: 0; overflow: hidden;">
-<a-scene
-    xr-mode-ui="enabled: false"
-    ar-hit-test="target: #building; type: single"
-    webxr="optionalFeatures: hit-test;"
-    renderer="colorManagement: true;"
-    cursor="rayOrigin: mouse; fuse: false">
-    <!-- Building Model -->
-    <a-entity 
-        id="building" 
-        gltf-model="../models/test.glb"
-        scale="1 1 1"
-        position="0 -10 0"
-        visible="false">
-    </a-entity>
-    <!-- Camera & Reticle (Placement Indicator) -->
-    <a-camera position="0 1.6 0">
-        <a-light type="ambient" intensity="1"></a-light>
-        <a-light type="directional" position="-1 2 1" intensity="1"></a-light>
-    </a-camera>
-</a-scene>
-<script>
-    let model = document.getElementById('building');
-
-    document.addEventListener("DOMContentLoaded", () => {
-        model.setAttribute("visible", "true");
-    });
-</script>
+<body>
+    <model-viewer 
+        src="../test.glb"
+        ar 
+        ar-modes="webxr scene-viewer quick-look" 
+        camera-controls 
+        auto-rotate 
+        shadow-intensity="1">
+        <button slot="ar-button" style="background: #0078D4; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer;">
+            View in AR
+        </button>
+    </model-viewer>
 </body>
 </html>
